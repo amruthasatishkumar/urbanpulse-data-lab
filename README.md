@@ -2,9 +2,11 @@
 
 Self-contained lab guide for the **UrbanPulse Data Lab** hands-on workshop.
 
-> **Scenario:** UrbanPulse Analytics is a software vendor building a Smart City operations platform on Microsoft Fabric. Across 11 modules organized into four goals — **Ingest, Transform, Build Report, Apply AI** — attendees build the reference architecture end-to-end: Lakehouse, Mirroring, Eventhouse, Spark notebook + SQL views, Real-Time Dashboard, Direct Lake + Power BI, Fabric Ontologies, Fabric Data Agents, and an Azure AI Foundry connected-agent orchestrator.
+> **Scenario:** UrbanPulse Analytics is a software vendor building a Smart City operations platform on Microsoft Fabric. Across 12 modules organized into five goals — **Ingest, Transform, Build Report, Apply AI, Source Control** — attendees build the reference architecture end-to-end: Lakehouse, Mirroring, Eventhouse, Spark notebook + SQL views, Real-Time Dashboard, Direct Lake + Power BI, Fabric Ontologies, Fabric Data Agents, an Azure AI Foundry connected-agent orchestrator, and Fabric Git integration.
 
 ---
+
+![Architecture overview](lab-guide/assets/images/architecture-overview.svg)
 
 ## Folder Structure
 
@@ -12,38 +14,33 @@ Self-contained lab guide for the **UrbanPulse Data Lab** hands-on workshop.
 urbanpulse-data-lab/
 ├── README.md                          ← you are here
 ├── lab-guide/                         ← attendee-facing HTML lab guide (open index.html)
-│   ├── index.html                     ← cover page + use case + 4 goal pills + 11 module cards
-│   ├── module-0-setup.html
-│   ├── module-1-workspace-tour.html
-│   ├── module-2-lakehouse-mirror.html
-│   ├── module-3-streaming.html
-│   ├── module-4-transform.html
-│   ├── module-5-kql-dashboard.html
-│   ├── module-6-direct-lake.html
-│   ├── module-7-ontologies.html
-│   ├── module-8-data-agents.html
-│   ├── module-9-multi-agent.html
-│   ├── module-10-foundry-orchestrator.html
+│   ├── index.html                     ← cover page + use case + goal pills + module cards
+│   ├── module-0-setup.html … module-11-git-integration.html
 │   ├── closing.html                   ← multi-tenant pattern picture + final recap
-│   ├── appendix-env-vars.html         ← Lab Credentials
-│   ├── appendix-data-downloads.html   ← Lab Data Downloads
-│   ├── appendix-prompt-library.html
+│   ├── appendix-data-setup.html       ← provisioning the lab data (SQL, Cosmos, Event Hubs)
+│   ├── appendix-learn-links.html      ← Microsoft Learn references
 │   └── assets/
 │       ├── css/data-lab.css           ← single source of branding
 │       ├── js/print.js                ← sidebar nav + Ctrl+P helper
-│       ├── downloads/                 ← parquet + facility photos for M2 Option B
-│       └── images/                    ← SVG diagrams + Microsoft logo
+│       ├── downloads/                 ← parquet, SQL script, Cosmos data, facility photos
+│       └── images/                    ← SVG diagrams and screenshots
+├── seed-data/                         ← synthetic source data: sql, cosmos, eventhub, parquet
+├── scripts/start-producers.ps1        ← starts the Event Hubs simulators
 ├── coach-prep/                        ← coach-only material (NOT shared with attendees)
 │   ├── README.md                      ← coach role + schedule
 │   ├── pre-flight-checklist.md        ← T-90min checklist
 │   └── simulator-runbook.md           ← how to run the 3 simulators
-└── diagrams/                          ← editable diagram sources (Excalidraw etc.)
+├── diagrams/                          ← editable diagram sources
+└── .github/workflows/pages.yml        ← publishes lab-guide/ to GitHub Pages
 ```
+
+All data is synthetic. Connection strings in the docs are placeholders (`SharedAccessKey=...`);
+supply your own when you provision the lab.
 
 ## How attendees use it
 
 1. Lab machine opens to `lab-guide/index.html`.
-2. Attendees follow modules **0 → 10** sequentially, then `closing.html`. Each module is one HTML page, ~20–75 minutes.
+2. Attendees follow modules **0 → 10** sequentially (11 is optional), then `closing.html`. Each module is one HTML page, ~20–75 minutes.
 3. The sticky sidebar groups modules under each goal so attendees can jump to a phase. The Goals page also has filter pills (All · Ingest · Transform · Build Report · Apply AI).
 4. To take an offline copy: **Ctrl+P → Save as PDF** on any page.
 
@@ -68,10 +65,10 @@ Whole guide as one PDF: open `index.html`, save as PDF, then concatenate each mo
 | 8 | Fabric Data Agent | 45m | G4 · Hospital Operations agent grounded on KQL |
 | 9 | Multi-Agent Catalog *(Optional)* | 20m | G4 · Add Transit Ops agent for a two-domain catalog |
 | 10 | Foundry Orchestrator *(Optional)* | 30m | G4 · Azure AI Foundry connected-agent orchestrator |
+| 11 | Git Integration *(Optional)* | 30m | G5 · Put the workspace under Azure DevOps Git source control |
 | End | Closing | — | Multi-tenant pattern picture + recap of everything you built |
-| A | Lab Credentials | reference | Per-user lab accounts and Azure resource locations |
-| B | Lab Data Downloads | reference | Facility catalog parquet + photos for M2 Option B |
-| C | Prompt Library | reference | Hospital + Transit + Orchestrator prompts by difficulty |
+| A | Data Setup | reference | Provisioning Azure SQL, Cosmos DB and Event Hubs with the seed data |
+| B | Learn Links | reference | Microsoft Learn references for each module |
 
 ## Branding
 
@@ -85,3 +82,8 @@ Inspired by and references content from `nickTinMicrosoft/fabric_hackathon_coach
 
 - Microsoft Fabric team - for the platform
 - @nickTin and the original hackathon coaches - for the simulator + agent recipe
+
+## Licence
+
+[MIT](LICENSE). Microsoft Fabric and other product names are trademarks of their owners; this is a
+community workshop, not an official Microsoft offering.
